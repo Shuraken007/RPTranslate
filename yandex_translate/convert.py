@@ -53,28 +53,18 @@ def check_other_lang(filedata, json_dump):
             break
    json_dump['not_english'] = sorted(not_english_words.items(), key=lambda pair: pair[1], reverse=True)
 
-replace_config = OrderedDict({
+blocks_config = OrderedDict({
    r'\n(Глава.*?)\s*\[.*?Amazon.*?\].*?': r'\1',
    r'\n(.*?Amazon.*?)\n': '',
    r'\n(.*?автор.*?)\n': '',
    r'\n(.*?Royal Road.*?)\n': '',
    r'\n(.*?Королевск.*?дорог.*?)\n': '',
-   r'((?:[А-Я]|\n|\s).*?)Arbitage(.*?\.|\n)': r'\1Арбитраж(!)\2',
-   r'((?:[А-Я]|\n|\s).*?)Arbitrage(.*?\.|\n)': r'\1Арбитраж(!)\2',
-   r'((?:[А-Я]|\n|\s).*?)Silvertide(.*?\.|\n)': r'\1Сильвертид(!)\2',
-   r'((?:[А-Я]|\n|\s).*?)Серебрян.*? (?:П|п)рилив(.*?\.|\n)': r'\1Сильвертид(!)\2',
-   r'((?:[А-Я]|\n|\s).*?)Aylin(.*?\.|\n)': r'\1Эйлин(!)\2',
-   r'((?:[А-Я]|\n|\s).*?)advanced track(.*?\.|\n)': r'\1продвинутой группы(!)\2',
-   r'((?:[А-Я]|\n|\s).*?)Renewal(.*?\.|\n)': r'\1Возрождение(!)\2',
-   r'((?:[А-Я]|\n|\s).*?)Обновление(.*?\.|\n)': r'\1Возрождение(!)\2',
-   r'((?:[А-Я]|\n|\s).*?)I\'m(.*?\.|\n)': r'\1Я(!)\2',
-   r'((?:[А-Я]|\n|\s).*?)Evergreen(.*?\.|\n)': r'\1Эвергрин(!)\2',
-   r'((?:[А-Я]|\n|\s).*?)Wizen(.*?\.|\n)': r'\1Визен(!)\2',
+   r'\n(.*?Украд.*?;.*?)\n': '',
 })
 
-def replace_data(filedata, json_dump):
+def remove_blocks(filedata, json_dump):
    replaced = {}
-   for k, v in replace_config.items():
+   for k, v in blocks_config.items():
       report = re.findall(k, filedata)
       replaced[k] = set()
       for f in report:
@@ -83,12 +73,45 @@ def replace_data(filedata, json_dump):
 
       filedata = re.sub(k, v, filedata)
    
-   json_dump['replaced'] = replaced
+   json_dump['replaced_blocks'] = replaced
+   return filedata
+
+words_config = OrderedDict({
+   r'Arbitage': "Арбитаж(!)",
+   r'Arbitrage': "Арбитаж(!)",
+   r'Silvertide': "Сильвертид(!)",
+   r'Серебрян.*? (?:П|п)рилив': "Сильвертид(!)",
+   r'Aylin': "Эйлин(!)",
+   r'advanced track': "продвинутой группы(!)",
+   r'((?:П|п)родвинут[а-я\s]*?)трек': r"\1группа(!)",
+   r'Renewal|Обновление|Ренессанс|Возобновление|Продление': "Возрождение(!)",
+   r'I\'m': "Я(!)",
+   r'Evergreen': "Эвергрин(!)",
+   r'Wizen': "Визен(!)",
+   r'Ноа': "Ной",
+   r'(?:Т|т)алисман': "Маскот",
+   r'Ул': "Ули",
+   r'Эйзел': "Айзел",
+})
+
+def get_sentence_for_pattern(pattern, filedata):
+   wrapped_pattern = r'.[^А-ЯA-Z\n.!?]*?' + pattern + r'.*?(?:\.|!|\?|\n)'
+   report = re.findall(wrapped_pattern, filedata)
+   return report
+
+def replace_words(filedata, json_dump):
+   replaced = {}
+   for k, v in words_config.items():
+      replaced[k] = get_sentence_for_pattern(k, filedata)
+      filedata = re.sub(k, v, filedata)
+   
+   json_dump['replaced_words'] = replaced
    return filedata
 
 def convert_file(filedata, json_dump):
    filedata = remove_unreadables(filedata, json_dump)
-   filedata = replace_data(filedata, json_dump)
+   filedata = remove_blocks(filedata, json_dump)
+   filedata = replace_words(filedata, json_dump)
    check_other_lang(filedata, json_dump)
    return filedata
    # print(json_dump)
@@ -119,7 +142,7 @@ if __name__ == '__main__':
    json_dump = {}
 
    filedata = convert_file(filedata, json_dump)
-   # split_on_files(filedata, json_dump)
+   split_on_files(filedata, json_dump)
 
    set_filedata(filedata, FILE_OUT)
    set_dump(FILE_DUMP, json_dump)
