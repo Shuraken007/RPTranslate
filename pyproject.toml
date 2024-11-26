@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "booktrans"
+version = "0.1.0"
+description = "automatization for book translation"
+authors = ["Shuraken007 <alexander.mad93@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+googletrans-di = "^4.0.2"
+yadopt = "^2024.11.24"
+httpcore = "^1.0.7"
+httpx = {extras = ["http2"], version = "^0.27.2"}
+python-docx = "^1.1.2"
+tqdm = "^4.67.1"
+
+[tool.poetry.scripts]
+concat = "booktrans.scripts.concat:main"
+translate = "booktrans.scripts.translate:main"
+clear = "booktrans.scripts.clear:main"
+explore = "booktrans.scripts.explore:main"
+replace_before = "booktrans.scripts.replace_before:main"
+replace_after = "booktrans.scripts.replace_after:main"
+full = "booktrans.scripts.full:main"
+todocx = "booktrans.scripts.todocx:main"
+fromdocx = "booktrans.scripts.fromdocx:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
