@@ -23,6 +23,18 @@ test = ["anyio[trio]", "coverage[toml] (>=7)", "exceptiongroup (>=1.2.0)", "hypo
 trio = ["trio (>=0.26.1)"]
 
 [[package]]
+name = "aspose-pdf"
+version = "24.10.0"
+description = "Aspose.PDF for Python via .NET is a PDF Processing library to perform document management can easily be used to generate, modify, convert, render, secure and print documents without using Adobe Acrobat."
+optional = false
+python-versions = "<3.13,>=3.7"
+files = [
+    {file = "aspose_pdf-24.10.0-py3-none-manylinux1_x86_64.whl", hash = "sha256:2631cd98a885ef443f4c366e3a1bcfd3f3f3d956effd2c4b688f3559d8504a93"},
+    {file = "aspose_pdf-24.10.0-py3-none-win32.whl", hash = "sha256:b3b384aa43277be215a852b3582b5b80878814c0446cb847c301ad02846d86cc"},
+    {file = "aspose_pdf-24.10.0-py3-none-win_amd64.whl", hash = "sha256:a31ddcd9b88e8a2a02028d68f530cfd19c1b1eb1bdf511fb8e14d3f2c7b80ad5"},
+]
+
+[[package]]
 name = "certifi"
 version = "2024.8.30"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -43,6 +55,20 @@ files = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+
+[[package]]
+name = "ebooklib"
+version = "0.18"
+description = "Ebook library which can handle EPUB2/EPUB3 and Kindle format"
+optional = false
+python-versions = "*"
+files = [
+    {file = "EbookLib-0.18.tar.gz", hash = "sha256:38562643a7bc94d9bf56e9930b4927e4e93b5d1d0917f697a6454db5a1c1a533"},
+]
+
+[package.dependencies]
+lxml = "*"
+six = "*"
 
 [[package]]
 name = "exceptiongroup"
@@ -348,6 +374,17 @@ lxml = ">=3.1.0"
 typing-extensions = ">=4.9.0"
 
 [[package]]
+name = "six"
+version = "1.16.0"
+description = "Python 2 and 3 compatibility utilities"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+files = [
+    {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
+    {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+
+[[package]]
 name = "sniffio"
 version = "1.3.1"
 description = "Sniff out which async library your code is running under"
@@ -403,5 +440,5 @@ files = [
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.10"
-content-hash = "66789cbad9dabd91888fe45e24f80cb31cb9011c47aa7d2c3bb3bfcc9b0af6ef"
+python-versions = ">=3.10,<3.13"
+content-hash = "4c50da6d32a4727b64183dd901d396383bfda85dc3bbd9dc65a296c2dbb08142"

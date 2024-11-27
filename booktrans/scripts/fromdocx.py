@@ -14,23 +14,12 @@ Other options:
 
 import yadopt
 from ..script import Script
-from ..const import DOCX, TRANSLATE
-from docx import Document
-from pathlib import Path
-
-def get_document(script, path):
-   docx_path = s.get_out_file(DOCX)
-   document = Document(path)
-   content = [p.text for p in document.paragraphs]
-
-   txt_path = s.get_out_file(TRANSLATE)
-   with open(txt_path, 'w', encoding="utf-8") as f_to:
-      f_to.write("\n".join(content))
+from file_converter import convert_docx_to_txt
 
 @yadopt.wrap(__doc__)
 def main(args: yadopt.YadOptArgs):
    s = Script(args.book_name)
-   get_document(s)
+   convert_docx_to_txt(s)
 
 if __name__ == '__main__':
    main()

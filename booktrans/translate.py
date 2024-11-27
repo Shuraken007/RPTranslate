@@ -57,7 +57,7 @@ def translate(script):
    dump_file_to_path = script.get_out_file(DUMP, prefix = 'translate')
 
    translator = Translator()
-
+   
    with tqdm(total=total_lines) as pbar:
       with open(translate_from, 'r') as f_from, \
             open(file_to_path, 'w') as f_to, \

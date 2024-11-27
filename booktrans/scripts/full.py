@@ -18,15 +18,27 @@ from ..clear import clear
 from ..translate import translate
 from ..concat import concat
 from ..replace import replace_before, replace_after
+from ..file_converter import convert_txt_to_epub, convert_txt_to_docx, convert_docx_to_txt
 
 @yadopt.wrap(__doc__)
 def main(args: yadopt.YadOptArgs):
    s = Script(args.book_name)
+   #yandex
+   # concat(s)
+   # clear(s)
+   # replace_before(s)
+   # convert_txt_to_docx(s)
+   # convert_docx_to_txt(s)
+   # convert_txt_to_epub(s)
+
+
+   ##google   
    concat(s)
    clear(s)
    replace_before(s)
-   translate(s)
-   replace_after(s)
+   # translate(s)
+   # replace_after(s)
+   # convert_txt_to_epub(s)
 
 if __name__ == '__main__':
    main()

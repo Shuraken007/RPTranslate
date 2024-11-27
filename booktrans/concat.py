@@ -10,7 +10,7 @@ def concat(script):
    glob_from_path = build_path([INPUT, script.book_name], '*.txt')
 
    with open(file_to_path, 'wb') as f_to:
-      for filename in glob.glob(glob_from_path):
+      for filename in sorted(glob.glob(glob_from_path)):
          with open(filename, 'rb') as f_from:
             shutil.copyfileobj(f_from, f_to)
          f_to.write(b"\n" + CHAPTER_DELIM.encode('utf-8') + b"\n")

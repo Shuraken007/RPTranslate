@@ -11,6 +11,11 @@ def build_path(path_arr, file_name=None, mkdir=False):
       path += os.path.sep
    return path
 
+def change_file_name(file_path, name):
+   path, filename = os.path.split(file_path)
+   newpath = os.path.join(path, name)
+   return newpath
+
 def get_file_lines_amount(file_path):
    with open(file_path, 'rb') as f:
       lines = 0
